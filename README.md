@@ -1,208 +1,236 @@
-Project Owner
-Name: Mohammad Abdul Rafay Chaudry
-Virginia Tech Email: rafaych@vt.edu
-Project Overview
-FIELDLINK is a self-contained, portable engineering computer — often called a cyberdeck — built around a Raspberry Pi 5 (16GB) and an optional Raspberry Pi AI HAT+ 2. The project aims to combine the tools normally scattered across a laptop, an electronics bench, a radio receiver, and a field data logger into one modular device. The envisioned form factor is a compact protective case containing a screen, keyboard, power supply, and interchangeable electronic modules.
+# FIELDLINK — Modular Raspberry Pi 5 Cyberdeck
 
-The system is inspired by the compact field terminals seen in science-fiction and tactical video games, but the goal is to build real, measurable engineering functionality, not a prop or a claim of military-grade equipment. FIELDLINK is intended for legitimate personal and educational use on equipment, networks, and spaces that I own or am authorized to test.
+> **Current status:** Planning and design. FIELDLINK is a proposed engineering prototype, not a completed product. The cover is concept art. The Raspberry Pi AI HAT+ 2 is **not included** in the current build; AI acceleration is a future upgrade.
 
-What can it do? In its proposed full configuration, FIELDLINK will:
-1. Operate independently: boot Linux and run programming tools, diagnostics, a local web dashboard, and offline documentation without an internet connection (once installed and provisioned).
-2. Support cybersecurity and network engineering: inspect and troubleshoot authorized Ethernet/Wi-Fi networks, view network packets, access devices by SSH, and document findings.
-3. Support hardware hacking: program microcontrollers, interact with sensors, read UART serial logs, and investigate SPI/I²C protocols with suitable adapters and protection.
-4. Receive and analyze radio transmissions: use a receive-only SDR to visualize radio spectrum and decode supported public/unencrypted signals when antennas and reception conditions permit.
-5. Provide off-grid telemetry: exchange low-bandwidth data and short messages between compatible LoRa devices within radio range.
-6. Support offline mapping: collect the cyberdeck's own GNSS position and display downloaded maps, waypoints, and route logs.
-7. Monitor an instrumented environment: collect temperature, humidity, device-status, and opt-in motion/presence sensor readings and show timestamped alerts. Experimental Wi-Fi CSI sensing is a research stretch goal, not a reliable way to identify people or track them through walls.
-8. Perform optional local AI inference: use the AI HAT+ 2 to run supported vision or small language models, such as classifying consented camera inputs or summarizing technical logs. AI acceleration does not make ordinary CPU tasks faster by itself.
-9. Unify information into a local “mission control” view: display sensors, devices, maps, RF observations, system health, and event history in one searchable interface. It is a small-scale, user-controlled data-integration platform, not a commercial or government surveillance system.
-Scope and success criteria
-The minimum viable prototype (MVP) is a stable Pi-powered Linux computer that displays a local dashboard, reads at least one real sensor, and logs one network or serial diagnostic event. The complete target adds portable power, radio reception, LoRa, GNSS, and a tested AI workflow. Additional radio, sensing, and AI capabilities will only be added after the essentials work reliably.
+## Project Owner
 
-Out of scope: covert monitoring, identifying unknown people by Wi-Fi, intercepting private communications, unauthorized network access, military certification, and guaranteed weatherproof operation.
-What I Hope to Learn
-- Embedded Linux: OS installation, kernel/device drivers, services, permissions, shell scripting, remote access, and recovery.
-- Computer architecture and edge AI: CPU versus AI-accelerator workloads, memory limitations, model deployment and benchmarking.
-- Electronics and instrumentation: digital logic levels, GPIO, UART, SPI, I²C, power regulation, grounding, fusing, and safe probing.
-- Cybersecurity and networking: network protocols, packet analysis, SSH, inventory, authorized network diagnostics, and security hardening.
-- RF engineering: antenna selection, software-defined radio, signal sampling, spectrum displays, receive-only decoders, and legal operating constraints.
-- Wireless systems: LoRa and GNSS fundamentals, communication range testing, and sensor-to-dashboard data exchange.
-- Full-stack engineering: API design, data collection services, event processing, database storage, local web dashboards, and test automation.
-- Mechanical and power design: enclosure layout, thermal design, runtime measurement, connector strain relief, modular mounting, and serviceability.
-- Engineering project management: component sourcing, bills of materials, version control, incremental milestones, test evidence, risk assessment, and sponsor presentations.
-Design and Implementation
-Proposed system architecture
+**Name:** Mohammad Abdul Rafay Chaudry  
+**Virginia Tech Email:** rafaych@vt.edu
+
+## Project Overview
+
+**FIELDLINK** is a portable, modular computing and electronics workstation—also called a *cyberdeck*—that I will design, assemble, and program around a **Raspberry Pi 5 (16GB)**. I want to create a self-contained platform for learning embedded systems, Linux, cybersecurity, hardware debugging, radio reception, GPS navigation, and environmental monitoring. It will combine a display, keyboard, rechargeable power, local storage, and replaceable accessory modules in one protective case.
+
+Unlike a conventional laptop, FIELDLINK will expose practical engineering connections and let me change its internal hardware. Its custom **Mission Control** dashboard will bring together my own sensor measurements, system status, network diagnostic results, permitted radio observations, GPS position, and historical logs. Once set up, many functions can run without internet access.
+
+**Planned use cases** (each requires the named hardware and software to be implemented and tested):
+
+| Capability | Example use | Required hardware |
+| --- | --- | --- |
+| Linux and software development | Write Python scripts, run local services, manage files | Raspberry Pi 5, storage, screen/keyboard |
+| Authorized network diagnostics | Check connectivity, inspect packets on a lab network, troubleshoot SSH | Pi Ethernet/Wi-Fi |
+| Hardware hacking and embedded development | Program a microcontroller, read UART logs, interface with sensors | Pico 2, protected adapters, wiring |
+| Radio signal reception | Display a spectrum waterfall and decode supported public broadcasts | RTL-SDR, appropriate antenna |
+| Off-grid communications | Exchange short messages and telemetry between two test nodes | Two compatible LoRa nodes |
+| Offline mapping | Display downloaded maps and log the deck's own coordinates | USB GNSS receiver, stored maps |
+| Environmental monitoring | Record temperature/humidity and opt-in occupancy sensor alerts | ESP32 and selected sensors |
+| Mission Control dashboard | View sensor data, network status, logs, and maps in one interface | Software developed for Pi 5 |
+
+**Minimum viable prototype (MVP):** Raspberry Pi boots reliably into a local Linux environment; a custom dashboard displays a real sensor reading received from a Pico 2; the reading is timestamped and saved locally; and I demonstrate one authorized network diagnostic. The complete prototype adds the display, battery, SDR, LoRa, GPS, and enclosure.
+
+**Scope limits:** This is not military-certified equipment. I will not attempt covert surveillance, identify people from Wi-Fi disturbances, intercept private transmissions, or test networks without permission. Wi-Fi movement sensing is experimental, needs extra hardware and informed consent, and is not a dependable person-identification system.
+
+## What I Hope to Learn
+
+Through this project, I hope to gain practical experience with:
+
+- **Embedded Linux:** installing Raspberry Pi OS, using the terminal, configuring services, managing permissions, remote access, backups, and recovery.
+- **Computer hardware and system integration:** selecting compatible interfaces, understanding ARM architecture, measuring CPU/RAM/disk usage, and identifying performance bottlenecks.
+- **Electronics:** 3.3V logic, GPIO, UART, I²C, SPI, wiring, protected inputs, grounding, basic schematic design, and microcontroller firmware.
+- **Networking and security:** TCP/IP, SSH, Wireshark, safe packet capture, logging, and security hardening on authorized test systems.
+- **RF and wireless communications:** software-defined radio, antennas, GNSS, LoRa message transfer, and factors that affect radio reception.
+- **Programming and data systems:** Python, APIs, asynchronous sensor collection, SQLite, MQTT, a browser dashboard, and automated tests.
+- **Mechanical design and power:** enclosure measurement and CAD, mounting, cooling, battery budgeting, current limits, and safe wiring.
+- **Engineering practice:** estimating a budget, sourcing components, recording design decisions, conducting repeatable tests, and documenting progress through GitHub.
+
+## Design and Implementation
+
+### 1. Proposed block diagram
+
 ```mermaid
-flowchart TB
-    UI[Display + keyboard / trackpad] <-->|HDMI + USB| PI[Raspberry Pi 5, 16GB\nLinux + local dashboard]
-    SSD[USB 3 SSD\nOS, maps, logs, AI assets] <-->|USB 3| PI
-    AI[AI HAT+ 2\nSupported local inference] <-->|PCIe| PI
-    PICO[Pico 2 / RP2040\nSensors, GPIO, UART] <-->|USB serial| PI
-    ESP[ESP32-S3\nOpt-in wireless / environment sensing] <-->|USB / local network| PI
-    SDR[RTL-SDR receiver\nSupported RF receive] -->|USB| PI
-    LORA[LoRa module\nShort messages / telemetry] <-->|USB serial| PI
-    GPS[USB GNSS receiver\nOwn location] -->|USB| PI
-    PI <-->|Ethernet / Wi-Fi| NET[Owned / authorized network]
-    POWER[Certified battery + regulated 5V supply\nProtection and power distribution] --> PI
-    POWER --> UI
-    POWER --> PICO
-    POWER --> ESP
+flowchart TD
+    P["Raspberry Pi 5 (16 GB)<br/>Raspberry Pi OS Lite 64-bit"]
+    D["HDMI screen + USB keyboard"]
+    S["USB 3 SSD<br/>offline files and event logs"]
+    C["Pico 2<br/>GPIO and serial interfaces"]
+    E["ESP32-S3<br/>optional sensor node"]
+    R["RTL-SDR<br/>receive-only radio"]
+    L["LoRa nodes<br/>message and telemetry tests"]
+    G["USB GNSS<br/>own location"]
+    B["Protected 5V power system<br/>battery / wall supply"]
+    D <--> P
+    P <--> S
+    P <--> C
+    P <--> E
+    R --> P
+    P <--> L
+    G --> P
+    B --> P
+    B --> D
 ```
-Important design constraint: the Pi 5 exposes a single PCIe connection, and the AI HAT+ 2 uses it. To avoid an expensive/complex PCIe-sharing design, the first build will use a USB 3 SSD, not a competing NVMe PCIe HAT. The Pi 5 remains the standalone computer; the accelerator and microcontrollers are optional connected modules, not separate PCs.
-Data and software design
+
+*This is a functional block diagram, **not** a wiring schematic. Power rails, USB capacity, fuses, and exact pin assignments must be verified before assembly.*
+
+### 2. Planned software architecture
+
 ```mermaid
 flowchart LR
-    SRC[GNSS, serial, sensors, SDR, network diagnostics] --> AGENTS[Small Python collection services]
-    AGENTS --> BUS[Local MQTT / event interface]
-    BUS --> DB[SQLite + files / time-stamped logs]
-    BUS --> API[FastAPI backend]
-    DB --> API
-    API --> DASH[Local browser-based FIELDLINK dashboard]
-    AI[Supported local AI inference] --> API
+    H["Connected sensors, GNSS,<br/>SDR and network tools"] --> A["Python data collectors"]
+    A --> M["Local event bus / MQTT"]
+    M --> Q["SQLite database and log files"]
+    M --> F["FastAPI application"]
+    Q --> F
+    F --> U["FIELDLINK dashboard<br/>in local web browser"]
 ```
-Software stack (proposed): Raspberry Pi OS 64-bit, Python, FastAPI, MQTT (Mosquitto), SQLite, a lightweight web interface, NetworkManager, Wireshark/tcpdump, gpsd, Meshtastic-compatible software, and SDR applications with verified ARM64 support. Kiwix and offline OpenStreetMap extracts provide reference material. Specific AI models and software will be chosen only after testing their compatibility with the AI HAT+ 2.
-Hardware selection rationale
-Decision	Reason	Tradeoff
-Raspberry Pi 5 16GB instead of mini PC	Native embedded interfaces, Raspberry Pi documentation/ecosystem, compact board	Lower general-purpose CPU performance than some x86 machines
-AI HAT+ 2 (Hailo-10H, dedicated memory)	Accelerates supported on-device AI inference	Extra cost, power and heat; no general-purpose CPU speedup
-USB 3 external SSD	Preserves PCIe for the AI HAT; ample local storage	USB cable/enclosure and shared bus bandwidth
-Pico 2 microcontroller	Reliable timing and flexible I/O for electronics experiments	Additional firmware and interface management
-Optional ESP32-S3	Low-cost wireless/sensor experiments, independent firmware	Wi-Fi CSI requires supported firmware, calibration and controlled tests
-RTL-SDR	Low-cost receive-only radio introduction	Not a professional spectrum analyzer; limited bandwidth/range
-Two LoRa nodes	Enables genuine end-to-end communications tests	Data rate is low, distance is environment dependent
-Certified battery, regulated supply	Safer than a custom lithium cell pack in an early prototype	Requires current-budget and power-path verification
 
+The initial OS will be **Raspberry Pi OS Lite (64-bit)**. I plan to implement the dashboard using Python/FastAPI and a lightweight web interface. Device collectors will run as system services. SQLite will store time-stamped events; MQTT may be introduced when there are multiple sensors or nodes. The dashboard will be accessible locally without depending on a cloud provider. Advanced AI processing is deferred to a separate future phase.
 
-Electrical and mechanical planning
-- Use a verified 5.1V / 5A-capable Pi 5 supply; do not assume every USB-C bank supports the required output profile. Measure peak current and test all peripherals before selecting the final supply.
-- Use correctly specified, fused/protected power distribution for display and peripherals. Avoid direct connections between incompatible supply voltages.
-- Pi GPIO is 3.3V logic, not tolerant of arbitrary 5V/12V/industrial signals. Use appropriate adapters, isolation, and protection.
-- Preserve airflow around the Pi, fan, AI HAT and power electronics. Test temperatures with the enclosure assembled.
-- Use accessible modular mounting, detachable connectors, cable strain relief, and documented pinouts.
-- Avoid relying on the protective case's original water-resistance rating after cutting holes for connectors or ventilation.
-- Final schematic, connector map, power budget and CAD layout will be committed after selecting exact parts and validating dimensions.
-Testing methods and acceptance targets
-Test	Planned evidence	Pass criteria
-Core Linux stability	Boot logs, uptime, temperature measurements	2-hour representative workload without crashes or thermal shutdown
-Hardware control	Pico firmware, wiring diagram, video	Dashboard command changes an LED and records sensor reading
-Network diagnostics	Packet captures from lab network	Explain and record an authorized test capture without exposing secrets
-Data dashboard	Screenshot + SQLite rows	Timestamped sensor events persist and display locally offline
-AI workload	Model name, latency logs, screenshot	One verified supported model runs fully locally and produces repeatable output
-SDR receiving	Waterfall screenshot and signal log	Receive and document one permitted/public signal in suitable conditions
-LoRa	Two-node test logs	Send/receive a timestamped message using two compatible configured radios
-GNSS + offline maps	Local map screenshot, coordinate logs	Outdoor fix is displayed over previously downloaded maps
-Battery + thermal	Voltage/current/runtimes, temperature chart	Stable operation; runtime recorded at a specified load, target ≥2 hours
-Enclosure repairability	Photos + removal/reinstall notes	Access and replace a module without damaging nearby components
+### 3. Main design decisions
 
+| Choice | Why I chose it | Limitation / verification needed |
+| --- | --- | --- |
+| Raspberry Pi 5, 16GB | Small, standalone Linux computer with a documented GPIO ecosystem | ARM software compatibility and performance need testing |
+| Raspberry Pi OS Lite 64-bit | Stable Pi hardware support and freedom to build my own interface | Must configure the user interface and services |
+| External USB 3 SSD | Easy-to-replace local storage for maps, code, and logs | Check USB power draw and boot method |
+| Pico 2 | Handles GPIO, timing-sensitive interactions, and electronics demonstrations | Requires firmware and proper voltage protection |
+| Optional ESP32-S3 boards | Independent low-cost wireless and sensor experiments | Wi-Fi sensing is research only; not person identification |
+| Receive-only RTL-SDR | Low-cost introduction to RF observation | Antenna-dependent; cannot transmit |
+| Two LoRa nodes | Allows an actual two-device communications demonstration | Low data rate and variable range |
+| Certified battery + regulator | Safer and easier to maintain than custom lithium cells | Verify exact 5.1V/5A Pi requirements and accessory power |
+| Modular protective enclosure | Components remain removable and repairable | Modified case cannot be assumed waterproof |
 
-Privacy and responsible use
-All network testing is limited to systems with permission; RF reception/transmission follows applicable law. Camera and presence experiments occur only in informed, consent-based settings. The project will not attempt covert person tracking or identity determination from Wi-Fi signal disturbances. Logs should minimize personal information and should not publish identifiable locations, MAC addresses, passwords, API keys, packet contents, or unredacted footage.
-Bill of Materials
-These are USD planning estimates as of October 2026, not verified real-time checkout quotes. Exact models and purchase links will be recorded alongside receipts when ordered. The AI HAT is included in the full feature budget but can be deferred during early work.
-Item	Quantity	Estimated Cost	Link
-Raspberry Pi 5, 16GB	1	$305	Raspberry Pi 5
-Raspberry Pi AI HAT+ 2	1	$200	AI HAT+ 2
-Official-compatible active cooling	1	$20	Active Cooler
-1TB USB 3 SSD (or NVMe in USB enclosure)	1	$110	SSD search
-7–10-inch HDMI display	1	$100	Display options
-Small USB keyboard + pointing device	1	$40	Keyboard search
-Raspberry Pi Pico 2	1	$5	Pico 2
-Electronics kit: breadboard, sensors, wires, UART protection	1	$35	DigiKey
-ESP32-S3 development board	2	$40	ESP32-S3 documentation
-RTL-SDR receive-only dongle + antenna kit	1	$65	RTL-SDR
-915MHz LoRa development nodes	2	$50	Heltec LoRa
-USB GNSS/GPS receiver	1	$35	Adafruit GPS options
-Powered USB 3 hub	1	$30	USB hub search
-Certified portable battery + regulated power adapters	1	$150	Battery options
-Protective hard case + internal mounting plate	1	$90	Protective case options
-Connectors, fasteners, cables, fusing, strain relief	1 lot	$75	DigiKey
-Optional camera and mmWave/PIR presence sensors	1 lot	$65	Adafruit
-Hardware subtotal		$1,415	
-15% contingency		$212	
-Estimated Total Cost		$1,627	
+### 4. Electrical and mechanical design
 
+The Pi 5 and peripherals will have a documented power budget before a battery is selected. The Pi needs a suitable high-current **5.1V supply**; voltage levels, cable ratings, total load and protection must be measured. All GPIO-level connections will use suitable 3.3V logic and protected adapters; industrial or higher-voltage signals must never connect directly to GPIO.
 
-Estimated Total Cost: $1,627 (including contingency; excluding applicable taxes, shipping, tools and paid labor). Optional sensors add $65 to the subtotal; without them, the estimated total including 15% contingency is approximately $1,553. Unspent allowance is not automatically authorized spending.
-Proposed funding releases
-The former $300 budget is not enough for the revised Pi 5 16GB plus AI plan. For sponsor accountability, funding should be released at evidence-based gates rather than all at once:
-Approval gate	Target week	Additional maximum release	Cumulative funding ceiling	Required demonstration
-A — computing platform	Week 0	$550	$550	Approved parts list, Linux boot and stable basic dashboard plan
-B — hardware + display	After Week 3	$350	$900	Boot logs, basic dashboard, GPIO/Pico and sensor readings
-C — radio + sensing	After Week 6	$350	$1,250	Integrated user interface, network and sensor event logging
-D — AI, field power, refinement	After Week 9	Up to $377	$1,627	Demonstrated SDR/LoRa/GNSS path, tested AI compatibility and revised electrical plan
+I will design a removable internal mounting plate, preserve cooling airflow, use strain relief and insulated connectors, and provide accessible ports. Exact circuit schematics, wiring diagrams, an enclosure CAD model, and a connector/pin map will be added once the physical components are selected. The design must allow a damaged module to be replaced without taking apart the whole system.
 
+### 5. Testing methods
 
-Gate allocations are planning caps, not exact supplier subtotals. Purchase orders must be updated for actual vendor prices, tax and shipping; if an early gate lacks the cash needed for its acceptance test, use existing lab tools or seek approval to change the order rather than claiming the test occurred. The AI HAT+ 2 may be purchased in Gate A only if approved within the ceiling, otherwise later. Any change to the total budget requires a separate approval.
-Timeline and Milestones
-Proposed 12-week schedule: 2026-10-19 through 2027-01-10. Dates are targets, subject to lead times, sponsor review and academic availability.
-Milestone	Target Date	Status
-Project planning, sourcing, sponsor approval	2026-10-23	Not Started
-Initial design: architecture, power diagram, enclosure dimensions	2026-11-01	Not Started
-Core prototype: Pi Linux, dashboard, Pico sensor	2026-11-08	Not Started
-Integration: screen, keyboard, logging and network tools	2026-11-29	Not Started
-RF, LoRa, GNSS and offline demonstration	2026-12-20	Not Started
-AI integration, portable power and full testing	2027-01-03	Not Started
-Documentation and project completion	2027-01-10	Not Started
+| Test | Evidence to upload | Acceptance criterion |
+| --- | --- | --- |
+| Linux stability | Boot log, temperature readings, test notes | Two hours of representative operation without crash |
+| GPIO + Pico | Code, wiring photo, video | Pi command controls an LED and reads a sensor |
+| Mission Control | Screenshot, database sample | Real sensor events are timestamped, stored, and shown offline |
+| Network tools | Redacted capture and command log | Diagnose an authorized test network without leaking private data |
+| SDR | Screenshot and reception log | Observe one permitted signal with suitable antenna |
+| LoRa | Transmit/receive logs from two nodes | Successful short test message in both directions |
+| GNSS and mapping | Offline map screenshot and GPS log | Outdoor position appears on stored map |
+| Battery and thermal | Voltage/current and runtime chart | Safe, stable operation and documented runtime; target 2+ hours |
+| Physical assembly | Photos and repair notes | A module can be removed and reinstalled without damage |
 
+## Bill of Materials
 
-Milestone details
-Weeks 1–3 — Computing and telemetry MVP: source and verify parts; install Raspberry Pi OS 64-bit; validate USB SSD, cooling and networking; build a local FastAPI dashboard; connect the Pico and one sensor. Gate B demo: real sensor reading appears with a timestamp.
+All amounts are **planning estimates in USD**, not confirmed store quotations. Links identify manufacturers, distributors, or useful product searches; exact models will be chosen before purchase. **No AI HAT is included in this budget.**
 
-Weeks 4–6 — Integrated terminal: mount display and keyboard, create power and connector diagrams, add an authorized network capture example, implement event storage and dashboard health status. Gate C demo: repeatable hardware and networking demonstration on the local screen.
+| Item | Quantity | Estimated Cost | Link |
+| --- | ---: | ---: | --- |
+| Raspberry Pi 5, 16GB | 1 | $305 | [Raspberry Pi](https://www.raspberrypi.com/products/raspberry-pi-5/) |
+| Active cooler | 1 | $20 | [Raspberry Pi](https://www.raspberrypi.com/products/active-cooler/) |
+| 1TB USB 3 SSD | 1 | $110 | [SSD options](https://www.amazon.com/s?k=1tb+external+usb+ssd) |
+| 7–10-inch HDMI screen | 1 | $100 | [Waveshare displays](https://www.waveshare.com/) |
+| Keyboard with touchpad | 1 | $40 | [Keyboard options](https://www.amazon.com/s?k=compact+usb+keyboard+touchpad) |
+| Raspberry Pi Pico 2 | 1 | $5 | [Raspberry Pi](https://www.raspberrypi.com/products/raspberry-pi-pico-2/) |
+| Breadboard, wires, basic sensors, serial adapter | 1 set | $35 | [DigiKey](https://www.digikey.com/) |
+| ESP32-S3 development boards | 2 | $40 | [Espressif](https://www.espressif.com/en/products/socs/esp32-s3) |
+| RTL-SDR receiver and antenna | 1 kit | $65 | [RTL-SDR](https://www.rtl-sdr.com/) |
+| US-band LoRa development boards | 2 | $50 | [Heltec](https://heltec.org/project/wifi-lora-32-v3/) |
+| USB GNSS receiver | 1 | $35 | [Adafruit GNSS](https://www.adafruit.com/category/86) |
+| Powered USB 3 hub | 1 | $30 | [Hub options](https://www.amazon.com/s?k=powered+usb+3+hub) |
+| Certified battery and regulated power accessories | 1 set | $150 | [Battery options](https://www.anker.com/) |
+| Protective case and mounting plate | 1 set | $90 | [Case options](https://www.harborfreight.com/) |
+| Cables, mounting screws, connectors, fusing, strain relief | 1 lot | $75 | [DigiKey](https://www.digikey.com/) |
+| Optional camera and presence sensors | 1 set | $65 | [Adafruit sensors](https://www.adafruit.com/) |
+| **Hardware subtotal** | | **$1,215** | |
+| **Contingency (15%, rounded)** | | **$182** | |
+| **Estimated Total Cost** | | **$1,397** | |
 
-Weeks 7–9 — Field modules: connect RTL-SDR and GNSS; demonstrate a suitable public RF signal and offline coordinates; exchange a LoRa message between two nodes; document radio/antenna limits. Gate D demo: recorded radio/GNSS/LoRa results and updated battery proposal.
+**Estimated Total Cost:** **$1,397**, including contingency, before tax, shipping, tools and paid labor. The $65 optional sensing allowance can be postponed. Existing lab monitors, keyboards, and power supplies will be used during early development where possible; a certified wall supply and boot media will be confirmed and budgeted before procurement.
 
-Weeks 10–12 — AI and portable integration: install/configure AI HAT+ 2 with supported inference software; implement a consent-based model demonstration; finish battery and thermal testing; assemble the case; publish schematics, code, cost reconciliation and final demonstration evidence.
-Progress Log
-2026-10-16 — Initial proposal drafted
-- Selected Raspberry Pi 5 16GB + AI HAT+ 2 as the proposed architecture, replacing earlier x86 and Jetson concepts.
-- Identified the main integration issue: PCIe is used by the AI accelerator, so storage will default to USB 3 SSD.
-- Drafted a modular block diagram, feature scope, estimated bill of materials, safety expectations and proposed twelve-week milestones.
-- Created the initial concept-art cover image hero.png.
-- Not yet completed: hardware procurement, wiring, OS installation, software implementation, or performance tests. No prototype validation is claimed.
-Next actions: confirm budget and vendor availability; purchase the Pi and basic power/cooling; establish a test bench; record actual prices and measurements here.
-YYYY-MM-DD — Next update
-Worked on:
-Completed:
-Problems:
-Measurements / evidence:
-Next steps:  
-Project Files
-The repository will be developed with this structure:
+**Funding approach:** Funding will be requested in stages rather than all at once. A preliminary $450 authorization would cover an initial Pi-based test bench with access to existing lab peripherals. Additional purchases will be approved only after the preceding milestone has been demonstrated and documented. The funding amounts and dates will be adjusted to actual quotations and the lab's approval process; unused funds carry forward rather than being spent automatically.
+
+**Future upgrade (not funded):** Raspberry Pi AI HAT+ 2 for compatible on-device inference after the base computer, sensors, and dashboard meet their acceptance tests.
+
+## Timeline and Milestones
+
+**Proposed project window:** October 19, 2026 – January 10, 2027. The schedule will be adjusted after parts ordering and sponsor approval.
+
+| Milestone | Target Date | Status |
+| --- | --- | --- |
+| Project planning and parts approval | 2026-10-23 | Not Started |
+| Initial architecture, power and interface design | 2026-11-01 | Not Started |
+| Core Raspberry Pi + Pico sensor prototype | 2026-11-08 | Not Started |
+| Integrated dashboard, display and network tools | 2026-11-29 | Not Started |
+| SDR, LoRa, GNSS and offline functionality | 2026-12-20 | Not Started |
+| Portable power, enclosure and verification | 2027-01-03 | Not Started |
+| Project documentation and final demonstration | 2027-01-10 | Not Started |
+
+**Milestone 1 — Core prototype (Weeks 1–3):** Install Linux, confirm storage and power, program the Pico, and display timestamped sensor values in a local dashboard. **Funding gate:** show a working demonstration, commit code and photographs, and reconcile the first purchase receipts before requesting screen and expansion funding.
+
+**Milestone 2 — User interface and diagnostics (Weeks 4–6):** Connect display and keyboard, run authorized network diagnostic tools, and save events locally. **Funding gate:** demonstrate the integrated interface and approved data collection before asking for radio modules.
+
+**Milestone 3 — Field communications (Weeks 7–9):** Demonstrate SDR reception, GPS over offline maps, and a message exchanged between two LoRa nodes. **Funding gate:** provide actual screenshots/logs and an updated electrical plan before requesting final battery and case funds.
+
+**Milestone 4 — Portable prototype (Weeks 10–12):** Finish mounting and power, conduct thermal and runtime tests, and document what works and what remains experimental.
+
+## Progress Log
+
+### 2026-10-19 — Project planning
+
+**Worked on:** Defined the Raspberry Pi 5-based FIELDLINK scope, current feature set, proposed architecture, component budget, and milestones.  
+**Completed:** Documentation draft and initial concept illustration only.  
+**Problems / open questions:** Exact part availability, power budget, physical fit, accessory current draw, and hardware interface compatibility still need verification.  
+**Next steps:** Obtain parts approval, select specific models, verify quotations and build the initial Linux/Pico test bench.  
+**Evidence:** This README; `hero.png` is concept art rather than a completed-build photograph.
+
+### YYYY-MM-DD — Next progress update
+
+**Worked on:**  
+**Completed:**  
+**Problems / open questions:**  
+**Measurements and evidence:**  
+**Next steps:**
+
+## Project Files
+
+The following files/folders will be added **as they are created**. This is a planned structure, not a claim that schematics, code or tests already exist.
+
+```text
 FIELDLINK/
-├── README.md                  # Main lab project proposal and updates
-├── hero.png                   # Required project cover image (currently concept art)
+├── README.md                 # This project proposal
+├── hero.png                  # Required cover image (concept art)
 ├── docs/
-│   ├── architecture/          # Final block diagrams and interfaces
-│   ├── design-decisions/      # Engineering tradeoffs and revisions
-│   ├── test-results/          # Captures, benchmark tables, test evidence
-│   └── progress/              # Longer progress notes and demo evidence
+│   ├── diagrams/             # Hardware architecture and power diagrams
+│   ├── design/               # Engineering decisions and CAD renders
+│   └── test-results/         # Photos, logs, measurements
 ├── hardware/
-│   ├── schematics/            # KiCad drawings after circuits are designed
-│   ├── pcb/                   # Future PCB files, if necessary
-│   ├── cad/                   # Enclosure CAD / fabrication drawings
-│   ├── datasheets/            # Manufacturer references where redistribution permits
-│   └── bom.csv                # Actual purchase quantities and costs
-├── software/
-│   ├── dashboard/             # Frontend and backend source
-│   ├── collectors/            # Sensor / radio / serial integrations
-│   ├── firmware/              # Pico and ESP32 code
-│   └── deployment/            # Installation and service configuration
-└── tests/                     # Repeatable test scripts and acceptance logs
-Folders and files beyond the current README and cover image are a planned layout; they will be added as actual work progresses. No schematic, PCB or CAD design is represented as complete at this stage.
-Useful Links
-- Raspberry Pi 5 official product page
-- Raspberry Pi AI HAT+ 2 official product page
-- Raspberry Pi AI documentation
-- Raspberry Pi 5 power and hardware documentation
-- Raspberry Pi Pico 2
-- Espressif ESP32-S3 documentation
-- RTL-SDR technical resources
-- Meshtastic documentation
-- Kiwix offline knowledge library
-- OpenStreetMap
-- FastAPI documentation
-- KiCad electronic design tools
-Project Image
-The repository root includes hero.png, the exact filename required by the AMP Lab project website. It currently shows a conceptual visualization of the intended cyberdeck. After assembling the working prototype, I plan to replace it with a photograph of the actual device, keeping the filename unchanged.
-This image is used as the project cover image on the AMP Lab website.
+│   ├── schematics/           # Circuit designs and pin mappings
+│   └── enclosure/            # CAD files and mounting layout
+└── software/
+    ├── firmware/             # Pico / ESP32 programs
+    ├── backend/              # Data collection and API services
+    └── dashboard/            # Mission Control interface
+```
+
+As work progresses I will commit firmware, source code, pinouts, assembly photographs, component datasheets, and redacted test results. Keys, passwords, precise private location histories, and raw third-party communications will not be committed.
+
+## Useful Links
+
+- [Raspberry Pi 5 official documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)
+- [Raspberry Pi OS and Imager](https://www.raspberrypi.com/software/)
+- [Raspberry Pi Pico 2](https://www.raspberrypi.com/products/raspberry-pi-pico-2/)
+- [Raspberry Pi GPIO and hardware interfaces](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#gpio)
+- [Python documentation](https://docs.python.org/3/)
+- [FastAPI documentation](https://fastapi.tiangolo.com/)
+- [Mosquitto MQTT](https://mosquitto.org/)
+- [Wireshark documentation](https://www.wireshark.org/docs/)
+- [GNU Radio](https://www.gnuradio.org/)
+- [RTL-SDR project](https://www.rtl-sdr.com/)
+- [Meshtastic documentation](https://meshtastic.org/docs/)
+- [Espressif ESP32-S3 documentation](https://www.espressif.com/en/products/socs/esp32-s3)
+- [OpenStreetMap](https://www.openstreetmap.org/)
+- [Kiwix offline knowledge](https://kiwix.org/)
+
+## Project Image
+
+The project image is saved at **[`hero.png`](hero.png)** in the repository root. It is an **illustrative concept image**, not a photograph of assembled hardware. I will replace it with a real photo of the FIELDLINK prototype once the hardware is built, retaining the required filename `hero.png` so the AMP Lab website can display it.
